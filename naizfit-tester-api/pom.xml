@@ -18,6 +18,8 @@
 	</properties>
 
 	<dependencies>
+	
+	
 
 		<!--
 		https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
@@ -32,6 +34,12 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
+			<version>7.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
 			<version>7.0.0</version>
 		</dependency>
 
@@ -51,9 +59,9 @@
 			<version>5.12.1</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
