@@ -18,11 +18,9 @@
 	</properties>
 
 	<dependencies>
-	
-	
 
-		<!--
-		https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
+
+		<!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api -->
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
@@ -43,16 +41,14 @@
 			<version>7.0.0</version>
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.18.3</version>
 		</dependency>
 
-		<!--
-		https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -63,12 +59,49 @@
 	</dependencies>
 
 	<build>
+		<finalName>api-tester</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.3.2</version>
 			</plugin>
+
+			<!-- Add manual-test source set -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.4.0</version>
+				<executions>
+					<execution>
+						<id>add-manual-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/manual-test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- BEWARE! mandatory to run integration test (manual-test)  -->
+			<!-- mvn test -Dtest=PingEndpointTest -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<configuration>
+					<includes>
+						<!-- only unitary tests (no integration test *IT.java) -->
+						<include>**/*Test.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
