@@ -19,3 +19,13 @@ You can run the integration test manually like this:
 mvn test -Dtest=PingEndpointIT
 ```
 Make sure the Docker container is running (execute build-and-run.sh).
+
+## Project milestones
+
+This repository uses `Git tags` to mark important development milestones.
+
+- [`v0.1.0-infra`](https://github.com/javier-nogales/naizfit-technical-test/tree/v0.1.0-infra) — Initial infrastructure setup completed:
+  - Maven project with WAR packaging
+  - Dockerfile with Tomcat container and run script
+  - Servlet-based API routing with Guice
+  - Manual integration test (`PingEndpointIT`) included
