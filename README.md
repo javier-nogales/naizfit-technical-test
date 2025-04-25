@@ -29,3 +29,6 @@ This repository uses `Git tags` to mark important development milestones.
   - Dockerfile with Tomcat container and run script
   - Servlet-based API routing with Guice
   - Manual integration test (`PingEndpointIT`) included
+
+
+## Scalability considerations
