@@ -18,4 +18,4 @@ You can run the integration test manually like this:
 ```bash
 mvn test -Dtest=PingEndpointIT
 ```
-Make sure the Docker container is running (see build-and-run.sh).
+Make sure the Docker container is running (execute build-and-run.sh).
