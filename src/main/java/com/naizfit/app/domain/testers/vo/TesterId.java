@@ -12,4 +12,9 @@ public record TesterId(UUID value) {
     public static TesterId newId() {
         return new TesterId(UUID.randomUUID());
     }
+    
+    @Override 
+    public String toString() {
+    	return value.toString();
+    }
 }
