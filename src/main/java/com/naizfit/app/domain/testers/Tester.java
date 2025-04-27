@@ -9,9 +9,9 @@ import java.util.UUID;
 import com.naizfit.app.domain.shared.BusinessException;
 import com.naizfit.app.domain.shared.vo.Email;
 import com.naizfit.app.domain.shared.vo.Name;
+import com.naizfit.app.domain.shared.vo.Sex;
 import com.naizfit.app.domain.testers.vo.Birthdate;
 import com.naizfit.app.domain.testers.vo.Password;
-import com.naizfit.app.domain.testers.vo.SexType;
 import com.naizfit.app.domain.testers.vo.TesterId;
 import com.naizfit.app.domain.testers.vo.TestsDone;
 
@@ -23,7 +23,7 @@ public class Tester {
 	private final Email email;
 	private final Password password;
 	private final Birthdate birthdate;
-	private final SexType sex;
+	private final Sex sex;
 	private final TestsDone testsDone;
 	private final List<Measure> measures;
 
@@ -33,7 +33,7 @@ public class Tester {
 				   final Email email, 
 				   final Password password, 
 				   final Birthdate birthdate, 
-				   final SexType sex,
+				   final Sex sex,
 				   final TestsDone testsDone, 
 				   final List<Measure> measures) {
 		
@@ -62,7 +62,7 @@ public class Tester {
 								final Email email, 
 								final Password password, 
 								final Birthdate birthdate,
-								final SexType sex) {
+								final Sex sex) {
 		
 		return new Tester(TesterId.newId(), 
 						  name, email, password, birthdate, sex, 
@@ -86,7 +86,7 @@ public class Tester {
 									  final Email email,
 									  final Password password,
 									  final Birthdate birthdate,
-									  final SexType sex,
+									  final Sex sex,
 									  final TestsDone testsDone,
 									  final List<Measure> measures) {
 		
@@ -121,7 +121,7 @@ public class Tester {
 	public Birthdate getBirthdate() {
 		return birthdate;
 	}
-	public SexType getSex() {
+	public Sex getSex() {
 		return sex;
 	}
 	public TestsDone getTestsDone() {
