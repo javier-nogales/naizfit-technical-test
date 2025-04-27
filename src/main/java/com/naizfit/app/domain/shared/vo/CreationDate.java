@@ -2,9 +2,9 @@ package com.naizfit.app.domain.shared.vo;
 
 import java.time.LocalDate;
 
-public record CreationDateType(LocalDate value) {
+public record CreationDate(LocalDate value) {
 
-	public CreationDateType {
+	public CreationDate {
 		if (value == null)
 			throw new IllegalArgumentException("Creation date cannot be null");
 	}

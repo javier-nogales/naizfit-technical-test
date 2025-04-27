@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.shared.vo;
 
-public record NameType(String value) {
+public record Name(String value) {
 	
-	public NameType {
+	public Name {
 		if (value == null || value.isBlank())
 			throw new IllegalArgumentException("Name must not be empty");
 	}

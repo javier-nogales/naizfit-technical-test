@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.naizfit.app.domain.shared.vo.EmailType;
-import com.naizfit.app.domain.shared.vo.NameType;
+import com.naizfit.app.domain.shared.BusinessException;
+import com.naizfit.app.domain.shared.vo.Email;
+import com.naizfit.app.domain.shared.vo.Name;
 import com.naizfit.app.domain.testers.vo.BirthdateType;
 import com.naizfit.app.domain.testers.vo.PasswordType;
 import com.naizfit.app.domain.testers.vo.SexType;
@@ -17,8 +18,8 @@ public class Tester {
 
 	// ───── FIELDS ──────────────────────────────────────────────────────────
 	private final UUID id;
-	private final NameType name;
-	private final EmailType email;
+	private final Name name;
+	private final Email email;
 	private final PasswordType password;
 	private final BirthdateType birthdate;
 	private final SexType sex;
@@ -27,8 +28,8 @@ public class Tester {
 
 	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
 	private Tester(final UUID id, 
-				   final NameType name, 
-				   final EmailType email, 
+				   final Name name, 
+				   final Email email, 
 				   final PasswordType password, 
 				   final BirthdateType birthdate, 
 				   final SexType sex,
@@ -56,8 +57,8 @@ public class Tester {
 	 * @param sex
 	 * @return
 	 */
-	public static Tester create(final NameType name, 
-								final EmailType email, 
+	public static Tester create(final Name name, 
+								final Email email, 
 								final PasswordType password, 
 								final BirthdateType birthdate,
 								final SexType sex) {
@@ -80,8 +81,8 @@ public class Tester {
 	 * @return
 	 */
 	public static Tester reconstitute(final UUID id,
-									  final NameType name,
-									  final EmailType email,
+									  final Name name,
+									  final Email email,
 									  final PasswordType password,
 									  final BirthdateType birthdate,
 									  final SexType sex,
@@ -107,10 +108,10 @@ public class Tester {
 	public UUID getId() {
 		return id;
 	}
-	public NameType getName() {
+	public Name getName() {
 		return name;
 	}
-	public EmailType getEmail() {
+	public Email getEmail() {
 		return email;
 	}
 	public PasswordType getPassword() {
@@ -143,14 +144,8 @@ public class Tester {
     }
     @Override
     public String toString() {
-        return "Tester[id=%s, name=%s, email=%s, birthdate=%s, sex=%s, testsDone=%s, measuresCount=%d]".formatted(
-            id,
-            name,
-            email,
-            birthdate,
-            sex,
-            testsDone,
-            measures.size()
+        return "Tester[id=%s, name=%s, email=%s, birthdate=%s, sex=%s, testsDone=%s, measures=%d]".formatted(
+            id, name, email, birthdate, sex, testsDone, measures
         );
     }
 

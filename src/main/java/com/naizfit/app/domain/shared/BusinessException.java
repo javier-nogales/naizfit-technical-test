@@ -1,4 +1,4 @@
-package com.naizfit.app.domain.testers;
+package com.naizfit.app.domain.shared;
 
 public class BusinessException extends RuntimeException {
 

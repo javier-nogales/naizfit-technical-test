@@ -1,5 +1,7 @@
 package com.naizfit.app.domain.testers.vo;
 
+import com.naizfit.app.domain.shared.Sex;
+
 public record SexType(Sex value) {
 
     public SexType {

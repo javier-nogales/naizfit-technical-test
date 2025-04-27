@@ -4,24 +4,24 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.naizfit.app.domain.shared.vo.CreationDateType;
+import com.naizfit.app.domain.shared.vo.CreationDate;
 import com.naizfit.app.domain.testers.vo.HeightType;
 import com.naizfit.app.domain.testers.vo.WeightType;
 
 // Recommendation: for a weight/height record that is only added and queried, 
-//	I would model it as VO without Id. If the need arises to edit it,  
+//	I would model it as VO without Id. If the need to edit it arises,  
 //	we migrate it to Entity with Id.
 final class Measure {
 
 	// ───── FIELDS ──────────────────────────────────────────────────────────
 	private final UUID id;
-	private final CreationDateType creationDate;
+	private final CreationDate creationDate;
     private final HeightType height;
     private final WeightType weight;
     
     // ───── CONSTRUCTOR ─────────────────────────────────────────────────────
 	private Measure(final UUID id,
-					final CreationDateType creationDate, 
+					final CreationDate creationDate, 
 				    final HeightType height, 
 				    final WeightType weight) {
         
@@ -42,7 +42,7 @@ final class Measure {
 			   				 		final WeightType weight) {
 		
 		return new Measure(UUID.randomUUID(),
-						   new CreationDateType(LocalDate.now()),
+						   new CreationDate(LocalDate.now()),
 						   height, weight);
 	}
 	/**
@@ -55,7 +55,7 @@ final class Measure {
 	 * @return
 	 */
 	public static Measure reconstitute(final UUID id,
-			  						   final CreationDateType creationDate,
+			  						   final CreationDate creationDate,
 			  						   final HeightType height, 
 			  						   final WeightType weight) {
 		
@@ -68,7 +68,7 @@ final class Measure {
 	UUID getId() {
 		return id;
 	}
-	CreationDateType getCreationDate() {
+	CreationDate getCreationDate() {
 		return creationDate;
 	}
 	HeightType getHeight() {
