@@ -11,4 +11,8 @@ public record TestsDoneType(int value) {
     public String toString() {
         return Integer.toString(value);
     }
+
+	public static TestsDoneType zero() {
+		return new TestsDoneType(0);
+	}
 }
