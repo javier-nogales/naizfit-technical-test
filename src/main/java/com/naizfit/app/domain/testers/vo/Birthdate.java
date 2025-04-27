@@ -2,9 +2,9 @@ package com.naizfit.app.domain.testers.vo;
 
 import java.time.LocalDate;
 
-public record BirthdateType(LocalDate value) {
+public record Birthdate(LocalDate value) {
 
-    public BirthdateType {
+    public Birthdate {
         if (value == null || value.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Birthdate must not be greater than today");
         }

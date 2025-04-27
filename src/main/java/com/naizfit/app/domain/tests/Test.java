@@ -6,17 +6,18 @@ import java.util.UUID;
 import com.naizfit.app.domain.products.Product;
 import com.naizfit.app.domain.testers.Tester;
 import com.naizfit.app.domain.tests.vo.Size;
+import com.naizfit.app.domain.tests.vo.TestId;
 
 public class Test {
 	
 	// ───── FIELDS ──────────────────────────────────────────────────────────
-	private final UUID id;
+	private final TestId id;
 	private final Tester tester;
 	private final Product product;
 	private final Size size;
 	
 	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
-	private Test(final UUID id,
+	private Test(final TestId id,
 				 final Tester tester,
 				 final Product product,
 				 final Size size) {
@@ -39,7 +40,7 @@ public class Test {
 			 				  final Product product,
 			 				  final Size size) {
 		
-		return new Test(UUID.randomUUID(),
+		return new Test(TestId.newId(),
 						tester, product, size);
 	}
 	/**
@@ -51,7 +52,7 @@ public class Test {
 	 * @param size
 	 * @return
 	 */
-	public static Test reconstitute(final UUID id,
+	public static Test reconstitute(final TestId id,
 									final Tester tester,
 									final Product product,
 									final Size size) {
@@ -63,7 +64,7 @@ public class Test {
 	
 
 	// ───── GETTERS ────────────────────────────────────────────────────────
-	public UUID getId() {
+	public TestId getId() {
 		return id;
 	}
 	public Tester getTester() {

@@ -4,7 +4,7 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 
 
 
-### Fhase 1 infrastructure
+### Phase 1 infrastructure
 - [x] Review documentation
 - [x] Create GitHub repo
 - [x] Create maven proyect
@@ -17,7 +17,7 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Create tag [`v0.1.0-infra`](https://github.com/javier-nogales/naizfit-technical-test/tree/v0.1.0-infra)
 - [x] Add milestone info to README
  
-### Fhase 2 Domain modeling
+### Phase 2 Domain modeling
 - [x] Modeling Testers agregate (without events)
 - [ ] Refactor VO validation in more steps: (ie) null and empty 
 - [x] Refactor VO names: quit sufix "Type" NameType --only--> Name
@@ -27,3 +27,5 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [ ] Design solution
 - [ ] Implement domain events
 - [ ] Create specific id types like TesterID, MeasureID, TestId, ProductID, BrandID
+
+### Phase 3 ApplicationService

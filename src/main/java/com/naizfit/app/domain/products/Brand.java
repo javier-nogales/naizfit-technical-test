@@ -3,18 +3,19 @@ package com.naizfit.app.domain.products;
 import java.util.Objects;
 import java.util.UUID;
 
+import com.naizfit.app.domain.products.vo.BrandId;
 import com.naizfit.app.domain.products.vo.Logo;
 import com.naizfit.app.domain.shared.vo.Name;
 
 final class Brand {
 
 	// ───── FIELDS ──────────────────────────────────────────────────────────
-	private final UUID id;
+	private final BrandId id;
 	private final Name name;
 	private final Logo logo;
 	
 	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
-	private Brand (final UUID id,
+	private Brand (final BrandId id,
 				   final Name name,
 				   final Logo logo) {
 		
@@ -33,7 +34,7 @@ final class Brand {
 	static Brand create(final Name name, 
 						final Logo logo) {
 		
-		return new Brand(UUID.randomUUID(),
+		return new Brand(BrandId.newId(),
 						 name, logo);
 	}
 	/**
@@ -44,7 +45,7 @@ final class Brand {
 	 * @param logo
 	 * @return
 	 */
-	public static Brand reconstitute(final UUID id,
+	public static Brand reconstitute(final BrandId id,
 									 final Name name,
 									 final Logo logo) {
 		
@@ -53,7 +54,7 @@ final class Brand {
 	}
 
 	// ───── GETTERS ────────────────────────────────────────────────────────
-	UUID getId() {
+	BrandId getId() {
 		return id;
 	}
 	Name getName() {

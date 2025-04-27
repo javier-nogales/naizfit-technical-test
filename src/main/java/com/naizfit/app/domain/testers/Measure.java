@@ -5,8 +5,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.naizfit.app.domain.shared.vo.CreationDate;
-import com.naizfit.app.domain.testers.vo.HeightType;
-import com.naizfit.app.domain.testers.vo.WeightType;
+import com.naizfit.app.domain.testers.vo.Height;
+import com.naizfit.app.domain.testers.vo.MeasureId;
+import com.naizfit.app.domain.testers.vo.Weight;
 
 // Recommendation: for a weight/height record that is only added and queried, 
 //	I would model it as VO without Id. If the need to edit it arises,  
@@ -14,16 +15,16 @@ import com.naizfit.app.domain.testers.vo.WeightType;
 final class Measure {
 
 	// ───── FIELDS ──────────────────────────────────────────────────────────
-	private final UUID id;
+	private final MeasureId id;
 	private final CreationDate creationDate;
-    private final HeightType height;
-    private final WeightType weight;
+    private final Height height;
+    private final Weight weight;
     
     // ───── CONSTRUCTOR ─────────────────────────────────────────────────────
-	private Measure(final UUID id,
+	private Measure(final MeasureId id,
 					final CreationDate creationDate, 
-				    final HeightType height, 
-				    final WeightType weight) {
+				    final Height height, 
+				    final Weight weight) {
         
         this.id = Objects.requireNonNull(id, "Id is required");
 		this.creationDate = Objects.requireNonNull(creationDate, "Creation date is required");
@@ -38,10 +39,10 @@ final class Measure {
 	 * @param weight
 	 * @return
 	 */
-	static Measure createNow(final HeightType height, 
-			   				 		final WeightType weight) {
+	static Measure createNow(final Height height, 
+			   				 final Weight weight) {
 		
-		return new Measure(UUID.randomUUID(),
+		return new Measure(MeasureId.newId(),
 						   new CreationDate(LocalDate.now()),
 						   height, weight);
 	}
@@ -54,10 +55,10 @@ final class Measure {
 	 * @param weight
 	 * @return
 	 */
-	public static Measure reconstitute(final UUID id,
+	public static Measure reconstitute(final MeasureId id,
 			  						   final CreationDate creationDate,
-			  						   final HeightType height, 
-			  						   final WeightType weight) {
+			  						   final Height height, 
+			  						   final Weight weight) {
 		
 		return new Measure(id,
 						   creationDate,
@@ -65,16 +66,16 @@ final class Measure {
 	}
 
 	// ───── GETTERS ────────────────────────────────────────────────────────
-	UUID getId() {
+	MeasureId getId() {
 		return id;
 	}
 	CreationDate getCreationDate() {
 		return creationDate;
 	}
-	HeightType getHeight() {
+	Height getHeight() {
 		return height;
 	}
-	WeightType getWeight() {
+	Weight getWeight() {
 		return weight;
 	}
 	

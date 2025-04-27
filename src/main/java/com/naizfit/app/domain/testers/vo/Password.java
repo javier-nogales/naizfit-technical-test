@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.testers.vo;
 
-public record PasswordType(String value) {
+public record Password(String value) {
 	
-	public PasswordType {
+	public Password {
 		if (value == null || !value.matches("^\\$2[aby]\\$.{56}$")) {
             throw new IllegalArgumentException("Password must be a valid BCrypt hash");
         }

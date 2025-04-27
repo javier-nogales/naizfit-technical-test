@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.testers.vo;
 
-import com.naizfit.app.domain.shared.Sex;
-
 public record SexType(Sex value) {
+	
+	public enum Sex {MALE, FAMALE}
 
     public SexType {
         if (value == null) {

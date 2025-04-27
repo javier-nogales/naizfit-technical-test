@@ -9,31 +9,32 @@ import java.util.UUID;
 import com.naizfit.app.domain.shared.BusinessException;
 import com.naizfit.app.domain.shared.vo.Email;
 import com.naizfit.app.domain.shared.vo.Name;
-import com.naizfit.app.domain.testers.vo.BirthdateType;
-import com.naizfit.app.domain.testers.vo.PasswordType;
+import com.naizfit.app.domain.testers.vo.Birthdate;
+import com.naizfit.app.domain.testers.vo.Password;
 import com.naizfit.app.domain.testers.vo.SexType;
-import com.naizfit.app.domain.testers.vo.TestsDoneType;
+import com.naizfit.app.domain.testers.vo.TesterId;
+import com.naizfit.app.domain.testers.vo.TestsDone;
 
 public class Tester {
 
 	// ───── FIELDS ──────────────────────────────────────────────────────────
-	private final UUID id;
+	private final TesterId id;
 	private final Name name;
 	private final Email email;
-	private final PasswordType password;
-	private final BirthdateType birthdate;
+	private final Password password;
+	private final Birthdate birthdate;
 	private final SexType sex;
-	private final TestsDoneType testsDone;
+	private final TestsDone testsDone;
 	private final List<Measure> measures;
 
 	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
-	private Tester(final UUID id, 
+	private Tester(final TesterId id, 
 				   final Name name, 
 				   final Email email, 
-				   final PasswordType password, 
-				   final BirthdateType birthdate, 
+				   final Password password, 
+				   final Birthdate birthdate, 
 				   final SexType sex,
-				   final TestsDoneType testsDone, 
+				   final TestsDone testsDone, 
 				   final List<Measure> measures) {
 		
 		this.id = Objects.requireNonNull(id, "ID is required");
@@ -59,13 +60,13 @@ public class Tester {
 	 */
 	public static Tester create(final Name name, 
 								final Email email, 
-								final PasswordType password, 
-								final BirthdateType birthdate,
+								final Password password, 
+								final Birthdate birthdate,
 								final SexType sex) {
 		
-		return new Tester(UUID.randomUUID(), 
+		return new Tester(TesterId.newId(), 
 						  name, email, password, birthdate, sex, 
-						  TestsDoneType.zero(),
+						  TestsDone.zero(),
 						  Collections.emptyList());
 	}
 	/**
@@ -80,13 +81,13 @@ public class Tester {
 	 * @param measures
 	 * @return
 	 */
-	public static Tester reconstitute(final UUID id,
+	public static Tester reconstitute(final TesterId id,
 									  final Name name,
 									  final Email email,
-									  final PasswordType password,
-									  final BirthdateType birthdate,
+									  final Password password,
+									  final Birthdate birthdate,
 									  final SexType sex,
-									  final TestsDoneType testsDone,
+									  final TestsDone testsDone,
 									  final List<Measure> measures) {
 		
 		return new Tester(id, 
@@ -105,7 +106,7 @@ public class Tester {
 	}
 
 	// ───── GETTERS ────────────────────────────────────────────────────────
-	public UUID getId() {
+	public TesterId getId() {
 		return id;
 	}
 	public Name getName() {
@@ -114,16 +115,16 @@ public class Tester {
 	public Email getEmail() {
 		return email;
 	}
-	public PasswordType getPassword() {
+	public Password getPassword() {
 		return password;
 	}
-	public BirthdateType getBirthdate() {
+	public Birthdate getBirthdate() {
 		return birthdate;
 	}
 	public SexType getSex() {
 		return sex;
 	}
-	public TestsDoneType getTestsDone() {
+	public TestsDone getTestsDone() {
 		return testsDone;
 	}
 	public List<Measure> getMeasures() {

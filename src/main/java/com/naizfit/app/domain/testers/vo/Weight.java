@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.testers.vo;
 
-public record WeightType(Double value) {
+public record Weight(Double value) {
 
-	public WeightType {
+	public Weight {
 		if (value == null || value <= 0)
 			throw new IllegalArgumentException("Weight must be a positive number");
 	}

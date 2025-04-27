@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.naizfit.app.domain.products.vo.Color;
 import com.naizfit.app.domain.products.vo.Pictures;
+import com.naizfit.app.domain.products.vo.ProductId;
 import com.naizfit.app.domain.products.vo.Size;
 import com.naizfit.app.domain.products.vo.Sizes;
 import com.naizfit.app.domain.products.vo.Sku;
@@ -12,7 +13,7 @@ import com.naizfit.app.domain.products.vo.Sku;
 public class Product {
 	
 	// ───── FIELDS ──────────────────────────────────────────────────────────
-	private final UUID id;
+	private final ProductId id;
 	private final Sku sku;
 	private final Sizes sizes;
 	private final Pictures pictures;
@@ -20,7 +21,7 @@ public class Product {
 	private final Color color;
 	
 	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
-	private Product (final UUID id,
+	private Product (final ProductId id,
 					 final Sku sku,
 					 final Sizes sizes,
 					 final Pictures pictures,
@@ -51,7 +52,7 @@ public class Product {
 			 					 final Brand brand,
 			 					 final Color color) {
 		
-		return new Product(UUID.randomUUID(),
+		return new Product(ProductId.newId(),
 						   sku,
 						   sizes,
 						   pictures,
@@ -69,7 +70,7 @@ public class Product {
 	 * @param color
 	 * @return
 	 */
-	public static Product reconstitute(final UUID id,
+	public static Product reconstitute(final ProductId id,
 									   final Sku sku,
 								 	   final Sizes sizes,
 								 	   final Pictures pictures,
@@ -108,7 +109,7 @@ public class Product {
     }
 
 	// ───── GETTERS ────────────────────────────────────────────────────────
-	public UUID getId() {
+	public ProductId getId() {
 		return id;
 	}
 	public Sku getSku() {

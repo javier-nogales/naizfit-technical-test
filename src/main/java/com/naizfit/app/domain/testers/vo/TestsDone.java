@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.testers.vo;
 
-public record TestsDoneType(int value) {
+public record TestsDone(int value) {
 	
-	public TestsDoneType {
+	public TestsDone {
 		if (value < 0) 
 			throw new IllegalArgumentException("Tests done must be zero or positive");
 	}
@@ -12,7 +12,7 @@ public record TestsDoneType(int value) {
         return Integer.toString(value);
     }
 
-	public static TestsDoneType zero() {
-		return new TestsDoneType(0);
+	public static TestsDone zero() {
+		return new TestsDone(0);
 	}
 }
