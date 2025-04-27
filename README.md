@@ -1,5 +1,8 @@
 # naizfit-technical-test
 
+## Documentation index
+- [technical-plan](docs/technical-test-plan.md)
+
 ## Run with Docker
 
 ```bash

@@ -18,3 +18,9 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Add milestone info to README
 
 ### Fhase 2 Domain modeling
+- [x] Modeling Testers agregate (without events)
+- [ ] Modeling Tests agregate (without events)
+- [ ] Modelin Product agregate (without events)
+- [ ] Address/study domain event logic
+- [ ] Design solution
+- [ ] Implement domain events
