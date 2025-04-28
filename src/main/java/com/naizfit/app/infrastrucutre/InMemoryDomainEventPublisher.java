@@ -7,7 +7,7 @@ import com.google.inject.Singleton;
 import com.naizfit.app.domain.DomainEventPublisher;
 
 @Singleton
-public class InMemoryEventPublisher 
+public class InMemoryDomainEventPublisher 
   implements DomainEventPublisher {
 	
 	// BEWARE! concurrency danger -> use CopyOnWriteArrayList -> for consistent writes and reads

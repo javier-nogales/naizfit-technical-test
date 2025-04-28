@@ -12,7 +12,7 @@ import com.google.inject.Singleton;
 import com.google.inject.servlet.ServletModule;
 import com.naizfit.app.domain.DomainEventPublisher;
 import com.naizfit.app.domain.testers.TesterRepository;
-import com.naizfit.app.infrastrucutre.InMemoryEventPublisher;
+import com.naizfit.app.infrastrucutre.InMemoryDomainEventPublisher;
 import com.naizfit.app.infrastrucutre.InMemoryTesterRepository;
 import com.naizfit.app.interfaceapi.ApiServlet;
 import com.naizfit.app.interfaceapi.controllers.PingController;
@@ -46,7 +46,7 @@ public class AppModule
         	// can be switched by real JPA repository (not implemented)
         
         // events
-        bind(DomainEventPublisher.class).to(InMemoryEventPublisher.class)
+        bind(DomainEventPublisher.class).to(InMemoryDomainEventPublisher.class)
         								.in(Singleton.class);
         	// can be switched by "KafkaDomainEventPublisher" (not implemented)
     }
