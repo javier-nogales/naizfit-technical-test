@@ -1,4 +1,4 @@
-package com.naizfit.app.interfaceapi;
+package com.naizfit.app.interfaceapi.routes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 import com.google.inject.Inject;
+import com.naizfit.app.interfaceapi.controllers.PingController;
 import com.naizfit.app.interfaceapi.controllers.TesterAdminController;
 
 import jakarta.servlet.ServletException;
@@ -27,20 +28,19 @@ public class Router {
 		this.pingController = pingController;
 		this.testerAdminController = testerAdminController;
 		
-		// Admin API for Testers
-        routes.add(new Route("POST",   "/admin/testers", 				testerAdminController::create));
-        routes.add(new Route("GET",    "/admin/testers", 				testerAdminController::list));
-        routes.add(new Route("GET",    "/admin/testers/:id", 			testerAdminController::getById));
-        routes.add(new Route("PUT",    "/admin/testers/:id", 			testerAdminController::update));
-//        routes.add(new Route("PUT",    "/admin/testers/:id/password", 	testerAdminController::updatePassword));
-        routes.add(new Route("DELETE", "/admin/testers/:id", 			testerAdminController::delete));
+		loadRoutes();
 	}
 	
-    protected void route(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public void route(final HttpServletRequest req,
+    				  final HttpServletResponse res) throws ServletException, IOException {
+    	
         String requestMethod = req.getMethod();
         String path = req.getPathInfo();
+        
         for (Route route : routes) {
+        	
             Matcher m = route.match(requestMethod, path);
+            
             if (m != null) {
                 Map<String,String> pathVars = route.extractPathVariables(m);
                 try {
@@ -51,7 +51,21 @@ public class Router {
                 return;
             }
         }
+        
         res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+    
+    private void loadRoutes() {
+    	// pin
+		routes.add(new Route("GET",	   "/ping",							pingController::ping));
+		
+		// Admin API for Testers
+        routes.add(new Route("POST",   "/admin/testers", 				testerAdminController::create));
+        routes.add(new Route("GET",    "/admin/testers", 				testerAdminController::list));
+        routes.add(new Route("GET",    "/admin/testers/:id", 			testerAdminController::getById));
+        routes.add(new Route("PUT",    "/admin/testers/:id", 			testerAdminController::update));
+        routes.add(new Route("PUT",    "/admin/testers/:id/password", 	testerAdminController::updatePassword));
+        routes.add(new Route("DELETE", "/admin/testers/:id", 			testerAdminController::delete));
     }
 
 }

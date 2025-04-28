@@ -3,6 +3,7 @@ package com.naizfit.app.application.testers;
 import java.time.Instant;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -12,6 +13,7 @@ import com.naizfit.app.application.testers.command.UpdatePasswordCommand;
 import com.naizfit.app.application.testers.command.UpdateTesterCommand;
 import com.naizfit.app.application.testers.dto.TesterDto;
 import com.naizfit.app.domain.DomainEventPublisher;
+import com.naizfit.app.domain.shared.exception.NotFoundException;
 import com.naizfit.app.domain.testers.Tester;
 import com.naizfit.app.domain.testers.TesterRepository;
 import com.naizfit.app.domain.testers.event.TesterDeleted;
@@ -23,9 +25,11 @@ import com.naizfit.app.domain.testers.vo.TesterId;
 
 public class TesterApplicationService {
 
+	// ───── SERVICES ────────────────────────────────────────────────────────
 	private final DomainEventPublisher eventPublisher;
 	private final TesterRepository testerRepository;
 	
+	// ───── CONSTRUCTOR ─────────────────────────────────────────────────────
 	@Inject
 	public TesterApplicationService(final DomainEventPublisher eventPublisher,
 									final TesterRepository testerRepository) {
@@ -34,11 +38,15 @@ public class TesterApplicationService {
 		this.testerRepository = testerRepository;
 	}
 	
-	public TesterId createTester(CreateTesterCommand cmd) {
-		// encrypt password 
-		String salt = BCrypt.gensalt(10);
-		String hashed = BCrypt.hashpw(cmd.rawPassword(), salt);
-		Password password = new Password(hashed);
+	// ───── SERVICE METHODS ─────────────────────────────────────────────────
+	/**
+	 * Create new Tester
+	 * @param cmd
+	 * @return
+	 */
+	public TesterId createTester(final CreateTesterCommand cmd) {
+		// encrypt 
+		Password password = encryptPassword(cmd.rawPassword());
 		
 		// create
 		Tester tester = Tester.create(cmd.name(),
@@ -46,6 +54,8 @@ public class TesterApplicationService {
 									  password,
 									  cmd.birthdate(),
 									  cmd.sex());
+		
+		// TODO: verify if email exists 
 		
 		// save
 		testerRepository.save(tester);
@@ -59,23 +69,36 @@ public class TesterApplicationService {
 		return tester.getId();
 		
 	}
-	public TesterDto findTesterById(TesterId id) {
+	/**
+	 * Load a Tester by id
+	 * @param id
+	 * @return
+	 */
+	public TesterDto findTesterById(final TesterId id) {
 		
-		Tester tester = testerRepository.findById(id)
-										.orElseThrow(() -> new NoSuchElementException("Tester id=" + id));
-		return TesterDto.fromDomain(tester);
+		return testerRepository.findById(id)
+							   .map(TesterDto::fromDomain)
+							   .orElseThrow(() -> new NotFoundException("Tester", id));
 	}
+	/**
+	 * Load all Testers
+	 * @return
+	 */
 	public List<TesterDto> findAllTesters() {
 		
 		return testerRepository.findAll().stream()
                 			   .map(TesterDto::fromDomain)
                 			   .toList();
 	}
-	public void updateTester(UpdateTesterCommand cmd) {
+	/**
+	 * Update existing Tester
+	 * @param cmd
+	 */
+	public void updateTester(final UpdateTesterCommand cmd) {
 		
 		// get
         Tester tester = testerRepository.findById(cmd.id())
-        								.orElseThrow(() -> new NoSuchElementException("Tester id=" + cmd.id()));
+        								.orElseThrow(() -> new NotFoundException("Tester", cmd.id()));
 
         // update
         Tester updated = Tester.reconstitute(tester.getId(),
@@ -96,17 +119,25 @@ public class TesterApplicationService {
         										 updated.getEmail(),
         										 Instant.now()));
 	}
-	public void updatePassword(UpdatePasswordCommand cmd) {
+	/**
+	 * Update Tester password
+	 * @param cmd
+	 */
+	public void updatePassword(final UpdatePasswordCommand cmd) {
 		
 	    // get
 	    Tester tester = testerRepository.findById(cmd.id())
-	    								.orElseThrow(() -> new NoSuchElementException("Tester id=" + cmd.id()));
+	    								.orElseThrow(() -> new NotFoundException("Tester", cmd.id()));
+	    
+	    // encrypt password 
+	 	Password password = encryptPassword(cmd.newPassword()
+	 										   .toString());
 	    
 	    // update password
 	    Tester updated = Tester.reconstitute(tester.getId(),
 	    									 tester.getName(),
 	    									 tester.getEmail(),
-	    									 cmd.newPassword(),  // update
+	    									 password,  				// update
 	    									 tester.getBirthdate(),
 	    									 tester.getSex(),
 	    									 tester.getTestsDone(),
@@ -119,12 +150,14 @@ public class TesterApplicationService {
 	    eventPublisher.publish(new TesterPasswordChanged(updated.getId(),
 	    												 Instant.now()));
 	}
-
-
+	/**
+	 * Remove Tester
+	 * @param id
+	 */
 	public void deleteTester(TesterId id) {
 		// validate if exists
         if (testerRepository.findById(id).isEmpty()) {
-            throw new NoSuchElementException("Tester id=" + id);
+            throw new NotFoundException("Tester", id);
         }
 
         // delete
@@ -135,5 +168,14 @@ public class TesterApplicationService {
             id,
             Instant.now()
         ));
+	}
+																			
+	// ───── PRIVATE METHODS ─────────────────────────────────────────────────
+	private Password encryptPassword(String rawPassword) {
+		
+		String salt = BCrypt.gensalt(10);
+		String hashed = BCrypt.hashpw(rawPassword, salt);
+		
+		return new Password(hashed);
 	}
 }

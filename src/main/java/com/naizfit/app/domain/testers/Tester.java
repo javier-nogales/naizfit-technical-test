@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-import com.naizfit.app.domain.shared.BusinessException;
+import com.naizfit.app.domain.shared.exception.BusinessException;
 import com.naizfit.app.domain.shared.vo.Email;
 import com.naizfit.app.domain.shared.vo.Name;
 import com.naizfit.app.domain.shared.vo.Sex;

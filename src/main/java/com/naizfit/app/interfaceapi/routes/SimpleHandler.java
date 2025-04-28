@@ -1,4 +1,4 @@
-package com.naizfit.app.interfaceapi;
+package com.naizfit.app.interfaceapi.routes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

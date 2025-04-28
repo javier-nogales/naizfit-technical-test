@@ -15,9 +15,9 @@ import com.naizfit.app.domain.testers.TesterRepository;
 import com.naizfit.app.infrastrucutre.InMemoryEventPublisher;
 import com.naizfit.app.infrastrucutre.InMemoryTesterRepository;
 import com.naizfit.app.interfaceapi.ApiServlet;
-import com.naizfit.app.interfaceapi.PingController;
-import com.naizfit.app.interfaceapi.Router;
+import com.naizfit.app.interfaceapi.controllers.PingController;
 import com.naizfit.app.interfaceapi.controllers.TesterAdminController;
+import com.naizfit.app.interfaceapi.routes.Router;
 
 public class AppModule 
 	 extends AbstractModule {

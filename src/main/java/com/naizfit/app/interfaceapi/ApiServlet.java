@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.naizfit.app.interfaceapi.routes.Router;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ public class ApiServlet
 	
 	@Inject
 	public ApiServlet(final Router router) {
+		
 		this.router = router;
 	}
 

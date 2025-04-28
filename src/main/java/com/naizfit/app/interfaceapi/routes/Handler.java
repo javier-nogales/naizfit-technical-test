@@ -1,4 +1,4 @@
-package com.naizfit.app.interfaceapi;
+package com.naizfit.app.interfaceapi.routes;
 
 import java.util.Map;
 

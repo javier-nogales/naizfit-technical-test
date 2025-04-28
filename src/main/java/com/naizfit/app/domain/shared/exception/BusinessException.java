@@ -1,6 +1,6 @@
-package com.naizfit.app.domain.shared;
+package com.naizfit.app.domain.shared.exception;
 
-public class BusinessException extends RuntimeException {
+public class BusinessException extends DomainException {
 
 	private static final long serialVersionUID = -6242139586840848374L;
 
