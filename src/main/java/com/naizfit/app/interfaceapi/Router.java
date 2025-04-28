@@ -1,14 +1,21 @@
 package com.naizfit.app.interfaceapi;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
 
 import com.google.inject.Inject;
 import com.naizfit.app.interfaceapi.controllers.TesterAdminController;
 
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class Router {
+	
+	private final List<Route> routes = new ArrayList<>();
 	
 	private final PingController pingController;
 	private final TesterAdminController testerAdminController;
@@ -19,74 +26,32 @@ public class Router {
 		
 		this.pingController = pingController;
 		this.testerAdminController = testerAdminController;
-	}
-
-	public void route(final String method, 
-					  final String path, 
-					  final HttpServletRequest req, 
-					  final HttpServletResponse resp) throws IOException {
 		
-		System.out.println(">>> Routing... " + path + ", " + method);
-		
-		// TODO: create best router handler.
-		
-		switch(method + " " + path) {
-			case "GET" -> {
-                if ("/admin/testers".equals(path)) {
-                    testerAdminController.list(req, resp);
-                }
-                else if (path.startsWith("/admin/testers/")) {
-                    // GET /admin/testers/{id}
-                    String id = path.substring("/admin/testers/".length());
-                    req.setAttribute("id", id);
-                    testerAdminController.getById(req, resp);
-                }
-                else if ("/ping".equals(path)) {
-                    pingController.ping(req, resp);
-                }
-                else {
-                    notFound(resp, path);
-                }
-            }
-            case "POST" -> {
-                if ("/admin/testers".equals(path)) {
-                    testerAdminController.create(req, resp);
-                }
-                else {
-                    notFound(resp, path);
-                }
-            }
-            case "PUT" -> {
-                if (path.startsWith("/admin/testers/")) {
-                    // PUT /admin/testers/{id}
-                    String id = path.substring("/admin/testers/".length());
-                    req.setAttribute("id", id);
-                    testerAdminController.update(req, resp);
-                }
-                else {
-                    notFound(resp, path);
-                }
-            }
-            case "DELETE" -> {
-                if (path.startsWith("/admin/testers/")) {
-                    // DELETE /admin/testers/{id}
-                    String id = path.substring("/admin/testers/".length());
-                    req.setAttribute("id", id);
-                    testerAdminController.delete(req, resp);
-                }
-                else {
-                    notFound(resp, path);
-                }
-            }
-            default -> notFound(resp, path);
-        }
-    
-		
+		// Admin API for Testers
+        routes.add(new Route("POST",   "/admin/testers", 				testerAdminController::create));
+        routes.add(new Route("GET",    "/admin/testers", 				testerAdminController::list));
+        routes.add(new Route("GET",    "/admin/testers/:id", 			testerAdminController::getById));
+        routes.add(new Route("PUT",    "/admin/testers/:id", 			testerAdminController::update));
+//        routes.add(new Route("PUT",    "/admin/testers/:id/password", 	testerAdminController::updatePassword));
+        routes.add(new Route("DELETE", "/admin/testers/:id", 			testerAdminController::delete));
 	}
 	
-	private void notFound(HttpServletResponse resp, String path) throws IOException {
-        resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        resp.getWriter().write("Ruta no encontrada: " + path);
+    protected void route(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String requestMethod = req.getMethod();
+        String path = req.getPathInfo();
+        for (Route route : routes) {
+            Matcher m = route.match(requestMethod, path);
+            if (m != null) {
+                Map<String,String> pathVars = route.extractPathVariables(m);
+                try {
+                    route.getHandler().handle(req, res, pathVars);
+                } catch (Exception e) {
+                    throw new ServletException(e);
+                }
+                return;
+            }
+        }
+        res.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 
 }

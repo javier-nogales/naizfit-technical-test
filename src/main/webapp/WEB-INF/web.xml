@@ -6,6 +6,10 @@
 
 	<display-name>naizfit-tester-api</display-name>
 
+	<listener>
+		<listener-class>com.naizfit.app.config.GuiceServletConfig</listener-class>
+	</listener>
+
 	<filter>
 		<filter-name>guiceFilter</filter-name>
 		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
@@ -15,9 +19,5 @@
 		<filter-name>guiceFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<listener>
-		<listener-class>com.naizfit.app.config.GuiceServletConfig</listener-class>
-	</listener>
 
 </web-app>

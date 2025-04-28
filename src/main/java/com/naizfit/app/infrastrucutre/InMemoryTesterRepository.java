@@ -3,14 +3,16 @@ package com.naizfit.app.infrastrucutre;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.base.Optional;
+import com.google.inject.Singleton;
 import com.naizfit.app.domain.testers.Tester;
 import com.naizfit.app.domain.testers.TesterRepository;
 import com.naizfit.app.domain.testers.vo.TesterId;
 
+@Singleton
 public class InMemoryTesterRepository implements TesterRepository {
 	
 	// BEWARE! concurrency danger -> use ConcurrentHashMap
@@ -24,7 +26,7 @@ public class InMemoryTesterRepository implements TesterRepository {
 
 	@Override
 	public Optional<Tester> findById(TesterId id) {
-		return Optional.fromNullable(store.get(id.value()));
+		return Optional.ofNullable(store.get(id.value()));
 	}
 
 	@Override

@@ -16,6 +16,7 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Create build-and-run.sh
 - [x] Create tag [`v0.1.0-infra`](https://github.com/javier-nogales/naizfit-technical-test/tree/v0.1.0-infra)
 - [x] Add milestone info to README
+- [ ] Update Guice bindings (persistence, events, etc...)
  
 ### Phase 2 Domain modeling
 - [x] Modeling Testers agregate (without events)
@@ -23,9 +24,17 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Refactor VO names: quit sufix "Type" NameType --only--> Name
 - [x] Modeling Product agregate (without events)
 - [x] Modeling Tests agregate (without events)
-- [ ] Address/study domain event logic
-- [ ] Design solution
-- [ ] Implement domain events
-- [ ] Create specific id types like TesterID, MeasureID, TestId, ProductID, BrandID
+- [x] Address/study domain event logic
+- [x] Design solution
+- [x] Implement domain events
+- [x] Create specific id types like TesterID, MeasureID, TestId, ProductID, BrandID
 
 ### Phase 3 ApplicationService
+- [ ] Create CRUD methods for Tester
+- [ ] Create Tester DTO
+- [ ] Define and create Teste commands
+- 
+
+### Phase 4 Testing
+- [ ] Run again and start testing endpoints (curl)
+- [ ] Create Integragion tests for Testers

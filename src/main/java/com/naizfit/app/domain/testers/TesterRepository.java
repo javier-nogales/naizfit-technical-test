@@ -1,8 +1,8 @@
 package com.naizfit.app.domain.testers;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.google.common.base.Optional;
 import com.naizfit.app.domain.testers.vo.TesterId;
 
 public interface TesterRepository {

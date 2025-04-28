@@ -16,6 +16,7 @@ public record TesterDto(TesterId id,
 						Sex sex) {
 	
 	public static TesterDto fromDomain(final Tester tester) {
+		
 		Objects.requireNonNull(tester, "Tester must not be null");
 		return new TesterDto(tester.getId(),
 							 tester.getName(),
