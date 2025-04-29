@@ -23,7 +23,7 @@ public class PingEndpointIT {
     @Test
     void pingShouldReturnPong() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/api-tester/api/ping"))
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8080/naizfit-tester-api/api/ping"))
 							    					  .GET()
 							    					  .build();
 

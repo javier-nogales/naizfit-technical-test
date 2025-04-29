@@ -3,6 +3,7 @@ package com.naizfit.app.domain.shared.vo;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public record Name(String value) {
 	
@@ -12,7 +13,7 @@ public record Name(String value) {
         if (value.isBlank()) throw new IllegalArgumentException("Name must not be empty");
     }
 
-
+	@JsonValue
     public String value() {
         return value;
     }

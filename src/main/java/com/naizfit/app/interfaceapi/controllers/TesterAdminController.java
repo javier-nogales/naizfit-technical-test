@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
@@ -132,12 +134,20 @@ public class TesterAdminController {
 		UpdatePasswordRequest apiDto = objectMapper.readValue(req.getInputStream(),
 													   		  UpdatePasswordRequest.class);
 		UpdatePasswordCommand cmd = new UpdatePasswordCommand(id,
-															  new Password(apiDto.newPassword()));
+															  encryptPassword(apiDto.newPassword()));
 
 		/////
 		testerService.updatePassword(cmd);
 		
 		/////
 		res.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	}
+	
+	private Password encryptPassword(String rawPassword) {
+		
+		String salt = BCrypt.gensalt(10);
+		String hashed = BCrypt.hashpw(rawPassword, salt);
+		
+		return new Password(hashed);
 	}
 }
