@@ -1,7 +1,7 @@
 # naizfit-technical-test
 
 ## Documentation index
-- :bell: [presentacion(es)](docs/presentacion_es.md)
+- :bell: [presentation(es)](docs/presentation_es.md)
 - [technical-plan](docs/technical-plan.md)
 - [architecture](docs/architecture.md)
 - [api-endpoints](docs/api-endpoints.md)
