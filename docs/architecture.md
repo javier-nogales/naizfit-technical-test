@@ -9,7 +9,7 @@ This document describes the architecture of the Naizfit Community Backend API Se
 |  (interfaceapi: Servlet, Router, Controllers, DTOs)     |
 +---------------------------------------------------------+
                  |                   ^
-                 | maps JSON ↔ DTOs |
+                 | maps JSON ↔ DTOs  |
                  v                   |
 +---------------------------------------------------------+
 |                  Application Layer                      |
@@ -37,7 +37,7 @@ This document describes the architecture of the Naizfit Community Backend API Se
 
 - Java 17, Jakarta Servlet API, Google Guice for DI
 - Jackson for JSON (with ParameterNamesModule, JavaTimeModule)
-- JUnit 5, HttpClient for integration tests, Maven Surefire/Failsafe
+- JUnit 5, HttpClient for integration tests, Maven Surefire
 - Docker + Tomcat for local deployment
 
 ### 3. Data Flow: Example “Create Tester”

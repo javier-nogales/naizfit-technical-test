@@ -30,73 +30,81 @@ import com.naizfit.app.infrastrucutre.InMemoryTesterRepository;
 
 class TesterApplicationServiceTest {
 	
-    private TesterRepository repo;
-    private InMemoryDomainEventPublisher publisher;
-    private TesterApplicationService service;
+    private TesterRepository testerRepository;
+    private InMemoryDomainEventPublisher domainEventPublisher;
+    private TesterApplicationService testerAplicationService;
 
     @BeforeEach
     void setUp() {
-        repo = new InMemoryTesterRepository();
-        publisher = new InMemoryDomainEventPublisher();
-        service = new TesterApplicationService(publisher, repo);
+        testerRepository = new InMemoryTesterRepository();
+        domainEventPublisher = new InMemoryDomainEventPublisher();
+        testerAplicationService = new TesterApplicationService(domainEventPublisher, testerRepository);
     }
 
     @Test
     void createTesterPublishesEventAndSaves() {
-        CreateTesterCommand cmd = new CreateTesterCommand(
-            new Name("Alice"),
-            new Email("alice@example.com"),
-            "secret",
-            new Birthdate(LocalDate.of(1990,1,1)),
-            Sex.FAMALE
-        );
-        TesterId id = service.createTester(cmd);
+    	
+        CreateTesterCommand cmd = new CreateTesterCommand(new Name("Maria Nogales"),
+        												  new Email("maria.nog76@gmail.com"),
+        												  "secret",
+        												  new Birthdate(LocalDate.of(1990,1,1)),
+        												  Sex.MALE);
+        
+        TesterId id = testerAplicationService.createTester(cmd);
         assertNotNull(id);
+        
         // repository contains
-        TesterDto dto = service.findTesterById(id);
-        assertEquals("Alice", dto.name().value());
+        TesterDto dto = testerAplicationService.findTesterById(id);
+        assertEquals("Maria Nogales", dto.name().value());
+        
         // event published
-        List<Object> evts = publisher.getPublishedEvents();
+        List<Object> evts = domainEventPublisher.getPublishedEvents();
         assertTrue(evts.stream().anyMatch(e -> e instanceof TesterRegistered));
     }
 
     @Test
     void findNonexistentThrows() {
+    	
         TesterId random = new TesterId(UUID.randomUUID());
-        assertThrows(NotFoundException.class, () -> service.findTesterById(random));
+        assertThrows(NotFoundException.class, () -> testerAplicationService.findTesterById(random));
     }
 
     @Test
     void updateTesterPublishesUpdatedEvent() {
+    	
         // first create
-        CreateTesterCommand create = new CreateTesterCommand(new Name("Bob"),
-        													 new Email("bob@example.com"),
-        													 "pwd",
+        CreateTesterCommand create = new CreateTesterCommand(new Name("Javier Nogales"),
+        													 new Email("javier.nog76@gmail.com"),
+        													 "secret",
         													 new Birthdate(LocalDate.of(1985,5,5)), 
         													 Sex.MALE);
-        TesterId id = service.createTester(create);
-        publisher.clear();
+        TesterId id = testerAplicationService.createTester(create);
+        domainEventPublisher.clear();
+        
         // update
         UpdateTesterCommand cmd = new UpdateTesterCommand(
-            id, new Name("Bobby"), new Email("bobby@example.com")
+            id, new Name("Javi"), new Email("javi.nog76@gmail.com")
         );
-        service.updateTester(cmd);
-        TesterDto updated = service.findTesterById(id);
-        assertEquals("Bobby", updated.name().value());
-        assertTrue(publisher.getPublishedEvents().stream().anyMatch(e -> e instanceof com.naizfit.app.domain.testers.event.TesterUpdated));
+        testerAplicationService.updateTester(cmd);
+        TesterDto updated = testerAplicationService.findTesterById(id);
+        
+        assertEquals("Javi", updated.name().value());
+        assertTrue(domainEventPublisher.getPublishedEvents().stream().anyMatch(e -> e instanceof com.naizfit.app.domain.testers.event.TesterUpdated));
     }
 
     @Test
     void deleteTesterPublishesDeletedEvent() {
+    	
         CreateTesterCommand create = new CreateTesterCommand(new Name("Carol"),
-        													 new Email("carol@example.com"),
-        													 "pwd",
+        													 new Email("carol.76@gmail.com"),
+        													 "secret",
         													 new Birthdate(LocalDate.of(1992,2,2)),
         													 Sex.FAMALE);
-        TesterId id = service.createTester(create);
-        publisher.clear();
-        service.deleteTester(id);
-        assertThrows(NotFoundException.class, () -> service.findTesterById(id));
-        assertTrue(publisher.getPublishedEvents().stream().anyMatch(e -> e instanceof TesterDeleted));
+        
+        TesterId id = testerAplicationService.createTester(create);
+        domainEventPublisher.clear();
+        testerAplicationService.deleteTester(id);
+        assertThrows(NotFoundException.class, () -> testerAplicationService.findTesterById(id));
+        assertTrue(domainEventPublisher.getPublishedEvents().stream().anyMatch(e -> e instanceof TesterDeleted));
     }
 }
