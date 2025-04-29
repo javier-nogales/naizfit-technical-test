@@ -134,7 +134,7 @@ public class TesterAdminController {
 		UpdatePasswordRequest apiDto = objectMapper.readValue(req.getInputStream(),
 													   		  UpdatePasswordRequest.class);
 		UpdatePasswordCommand cmd = new UpdatePasswordCommand(id,
-															  encryptPassword(apiDto.newPassword()));
+															  Password.of(apiDto.newPassword()));
 
 		/////
 		testerService.updatePassword(cmd);
@@ -143,11 +143,4 @@ public class TesterAdminController {
 		res.setStatus(HttpServletResponse.SC_NO_CONTENT);
 	}
 	
-	private Password encryptPassword(String rawPassword) {
-		
-		String salt = BCrypt.gensalt(10);
-		String hashed = BCrypt.hashpw(rawPassword, salt);
-		
-		return new Password(hashed);
-	}
 }

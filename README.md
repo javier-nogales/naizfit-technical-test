@@ -2,7 +2,9 @@
 
 ## Documentation index
 - :bell: [presentacion(es)](docs/presentacion_es.md)
-- [technical-plan](docs/technical-test-plan.md)
+- [technical-plan](docs/technical-plan.md)
+- [architecture](docs/architecture.md)
+- [api-endpoints](docs/api-endpoints.md)
 
 ## Run with Docker
 

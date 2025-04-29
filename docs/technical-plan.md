@@ -1,6 +1,6 @@
-## Technical Test Plan
+## Technical-Test Plan
 
-This document have ideas, decisions, tasks and reflexions during technical test development. 
+This document have ideas, decisions, tasks and during technical-test development. 
 
 
 
@@ -16,7 +16,7 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Create build-and-run.sh
 - [x] Create tag [`v0.1.0-infra`](https://github.com/javier-nogales/naizfit-technical-test/tree/v0.1.0-infra)
 - [x] Add milestone info to README
-- [ ] Update Guice bindings (persistence, events, etc...)
+- [x] Update Guice bindings (persistence, events, etc...)
 - [x] Refactor Router: find better and elegant solution
 - [x] Implement erro response 404, etc...
  
@@ -30,7 +30,7 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [x] Design solution
 - [x] Implement domain events
 - [x] Create specific id types like TesterID, MeasureID, TestId, ProductID, BrandID
-- [ ] Implement Domain exceptions (NotFoundException)
+- [x] Implement Domain exceptions (NotFoundException, etc...)
 
 ### ApplicationService
 - [x] Create CRUD methods for Tester
@@ -39,6 +39,14 @@ This document have ideas, decisions, tasks and reflexions during technical test 
 - [ ] Not allow duplicate Tester email
 
 
-### Phase 4 Testing
-- [ ] Run again and start testing endpoints (curl)
-- [ ] Create Integragion tests for Testers
+### Testing
+- [x] Run again and start testing endpoints (curl)
+- [ ] create unitary test for domain Tester
+- [x] create unitary test for TesterApplicationServiceTest
+- [x] Create Integragion tests for Testers
+
+### Documentation
+- [x] Update README
+- [x] Create architecture doc
+- [x] Create api-endpoints doc
+- [x] Create presentation_es doc

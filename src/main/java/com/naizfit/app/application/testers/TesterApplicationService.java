@@ -46,7 +46,7 @@ public class TesterApplicationService {
 	 */
 	public TesterId createTester(final CreateTesterCommand cmd) {
 		// encrypt 
-		Password password = encryptPassword(cmd.rawPassword());
+		Password password = Password.of(cmd.rawPassword());
 		
 		// create
 		Tester tester = Tester.create(cmd.name(),
@@ -128,12 +128,11 @@ public class TesterApplicationService {
 	    // get
 	    Tester tester = testerRepository.findById(cmd.id())
 	    								.orElseThrow(() -> new NotFoundException("Tester", cmd.id()));
+
 	    
-	    // encrypt password 
-	 	Password password = encryptPassword(cmd.newPassword()
-	 										   .toString());
-	    
-	    // update password
+	    // update
+	    Password password = Password.of(cmd.newPassword()
+	    		.toString());
 	    Tester updated = Tester.reconstitute(tester.getId(),
 	    									 tester.getName(),
 	    									 tester.getEmail(),
@@ -155,6 +154,7 @@ public class TesterApplicationService {
 	 * @param id
 	 */
 	public void deleteTester(TesterId id) {
+		
 		// validate if exists
         if (testerRepository.findById(id).isEmpty()) {
             throw new NotFoundException("Tester", id);
@@ -169,13 +169,5 @@ public class TesterApplicationService {
             Instant.now()
         ));
 	}
-																			
-	// ───── PRIVATE METHODS ─────────────────────────────────────────────────
-	private Password encryptPassword(String rawPassword) {
-		
-		String salt = BCrypt.gensalt(10);
-		String hashed = BCrypt.hashpw(rawPassword, salt);
-		
-		return new Password(hashed);
-	}
+
 }
