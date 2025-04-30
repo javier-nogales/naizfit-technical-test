@@ -18,6 +18,6 @@ Este es mi ejercicio técnico para la [prueba técnica](https://www.notion.so/na
 
 
 ## Documentación
-- [technical-plan](docs/technical-plan.md)
-- [architecture](docs/architecture.md)
-- [api-endpoints](docs/api-endpoints.md)
+- [technical-plan](technical-plan.md)
+- [architecture](architecture.md)
+- [api-endpoints](api-endpoints.md)
